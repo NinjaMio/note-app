@@ -45,8 +45,16 @@ class App extends Component {
   }
 
   submitNote = (data, id) => {
+    const newNotesState = this.state.notes.filter((note) => note.id !== id );
     this.performSubmissionRequest(data, id)
     .then((res) => this.setState({ showNote: false }) )
+    .catch((err) => console.log(err.response.data) );
+  }
+
+  deleteNote = (id) => {
+    const newNotesState = this.state.notes.filter((note) => note.id !== id );
+    axios.delete(urlFor(`notes/${id}`))
+    .then((res) => this.setState({ notes: newNotesState }))
     .catch((err) => console.log(err.response.data) );
   }
 
@@ -65,6 +73,7 @@ class App extends Component {
             getNotes={this.getNotes}
             notes={notes}
             getNote={this.getNote}
+            deleteNote={this.deleteNote}
           />
         }
       </div>
