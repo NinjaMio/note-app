@@ -63,6 +63,10 @@ class App extends Component {
     this.setState({ newTag: true });
   }
 
+  closeTagForm = () => {
+    this.setState({ newTag: false });
+  }
+
   render() {
     const { showNote, notes, note, newTag } = this.state;
 
@@ -70,11 +74,12 @@ class App extends Component {
       <div className="App">
         <Nav toggleNote={this.toggleNote} showNote={showNote} />
         {showNote ?
-          <Note 
+          <Note
             note={note}
             submitNote={this.submitNote}
-            showTagForm={this.showTagForm}
             newTag={newTag}
+            showTagForm={this.showTagForm}
+            closeTagForm={this.closeTagForm}
           />
           :
           <List
